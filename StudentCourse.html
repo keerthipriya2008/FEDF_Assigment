@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Course Registration System</title>
+</head>
+<body>
+  <h2>Course Registration (Async/Await)</h2>
+  <button onclick="getCourses()">View Courses</button>
+  <button onclick="registerStudent()">Register Student</button>
+  <button onclick="updateRegistration()">Update Registration</button>
+  <button onclick="cancelRegistration()">Cancel Registration</button>
+  <div id="output"></div>
+
+<script>
+const COURSE_API = "https://jsonplaceholder.typicode.com/posts";
+
+async function getCourses() {
+  try {
+    const res = await fetch(COURSE_API);
+    const data = await res.json();
+    document.getElementById("output").innerText = JSON.stringify(data.slice(0,5), null, 2);
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+async function registerStudent() {
+  try {
+    const registration = { student: "Akhila", course: "JavaScript Basics" };
+    const res = await fetch(COURSE_API, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(registration)
+    });
+    const data = await res.json();
+    document.getElementById("output").innerText = "Registered: " + JSON.stringify(data);
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+async function updateRegistration() {
+  try {
+    const registration = { course: "Advanced DSA" };
+    const res = await fetch(${COURSE_API}/1, {
+      method: "PUT",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(registration)
+    });
+    const data = await res.json();
+    document.getElementById("output").innerText = "Updated: " + JSON.stringify(data);
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+async function cancelRegistration() {
+  try {
+    const res = await fetch(${COURSE_API}/1, { method: "DELETE" });
+    document.getElementById("output").innerText = "Cancelled Registration for Course 1";
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Management System</title>
+</head>
+<body>
+  <h2>Employee Management (Promises)</h2>
+  <button onclick="getEmployees()">Get Employees</button>
+  <button onclick="addEmployee()">Add Employee</button>
+  <button onclick="updateEmployee()">Update Employee</button>
+  <button onclick="deleteEmployee()">Delete Employee</button>
+  <div id="output"></div>
+
+<script>
+const API_URL = "https://jsonplaceholder.typicode.com/users";
+
+function getEmployees() {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => document.getElementById("output").innerText = JSON.stringify(data, null, 2))
+    .catch(err => console.error("Error:", err));
+}
+
+function addEmployee() {
+  const employee = { name: "New Employee", email: "new@company.com" };
+  fetch(API_URL, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(employee)
+  })
+    .then(res => res.json())
+    .then(data => document.getElementById("output").innerText = "Added: " + JSON.stringify(data))
+    .catch(err => console.error("Error:", err));
+}
+
+function updateEmployee() {
+  const employee = { name: "Updated Employee" };
+  fetch(${API_URL}/1, {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(employee)
+  })
+    .then(res => res.json())
+    .then(data => document.getElementById("output").innerText = "Updated: " + JSON.stringify(data))
+    .catch(err => console.error("Error:", err));
+}
+
+function deleteEmployee() {
+  fetch(${API_URL}/1, { method: "DELETE" })
+    .then(res => res.json())
+    .then(data => document.getElementById("output").innerText = "Deleted Employee 1")
+    .catch(err => console.error("Error:", err));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Inventory System</title>
+</head>
+<body>
+  <h2>Product Inventory (Async/Await)</h2>
+  <button onclick="getProducts()">Get Products</button>
+  <button onclick="addProduct()">Add Product</button>
+  <button onclick="updateProduct()">Update Product</button>
+  <button onclick="deleteProduct()">Delete Product</button>
+  <div id="output"></div>
+
+<script>
+const PRODUCT_API = "https://jsonplaceholder.typicode.com/posts";
+
+async function getProducts() {
+  try {
+    const res = await fetch(PRODUCT_API);
+    const data = await res.json();
+    document.getElementById("output").innerText = JSON.stringify(data.slice(0,5), null, 2);
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+async function addProduct() {
+  try {
+    const product = { title: "New Product", body: "Category ABC" };
+    const res = await fetch(PRODUCT_API, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(product)
+    });
+    const data = await res.json();
+    document.getElementById("output").innerText = "Added: " + JSON.stringify(data);
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+async function updateProduct() {
+  try {
+    const product = { title: "Updated Product" };
+    const res = await fetch(${PRODUCT_API}/1, {
+      method: "PUT",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(product)
+    });
+    const data = await res.json();
+    document.getElementById("output").innerText = "Updated: " + JSON.stringify(data);
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+async function deleteProduct() {
+  try {
+    const res = await fetch(${PRODUCT_API}/1, { method: "DELETE" });
+    document.getElementById("output").innerText = "Deleted Product 1";
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+</script>
+</body>
+</html>
